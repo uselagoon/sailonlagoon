@@ -1,12 +1,12 @@
 {
-    "name": "bomoko/sailinglagoon",
+    "name": "uselagoon/sailonlagoon",
     "description": "Sail on Lagoon",
     "keywords": [
         "uselagoon",
         "laravel",
         "sailinglagoon"
     ],
-    "homepage": "https://github.com/bomoko/sailinglagoon",
+    "homepage": "https://github.com/uselagoon/sailonlagoon",
     "license": "MIT",
     "authors": [
         {
