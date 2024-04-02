@@ -1,0 +1,6 @@
+  mariadb:
+    image: amazeeio/mariadb
+    labels:
+      lagoon.type: mariadb
+    environment:
+      SERVICE_NAME: worker

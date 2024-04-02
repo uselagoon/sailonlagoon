@@ -1,0 +1,16 @@
+  worker:
+    build:
+      context: .
+      dockerfile: lagoon/worker.dockerfile
+      args:
+        CLI_IMAGE: *cli-image
+    labels:
+      lagoon.type: worker-persistent
+      lagoon.name: worker
+      lagoon.persistent.name: nginx
+      lagoon.persistent: /app/storage/
+    depends_on:
+      - cli
+      - redis
+      - mariadb
+

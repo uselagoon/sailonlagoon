@@ -1,0 +1,7 @@
+  redis:
+    build:
+      context: .
+      dockerfile: lagoon/redis.dockerfile
+    image: amazeeio/redis-persistent
+    labels:
+      lagoon.type: redis-persistent

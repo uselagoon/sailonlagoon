@@ -1,0 +1,15 @@
+  # SERVICE: php
+  php:
+    build:
+      context: .
+      dockerfile: lagoon/php.dockerfile
+      args:
+        CLI_IMAGE: *cli-image
+    labels:
+      lagoon.type: nginx-php-persistent
+      lagoon.name: nginx
+      lagoon.persistent: /app/storage/
+    volumes:
+      - ./:/app:delegated
+    depends_on:
+      - mariadb

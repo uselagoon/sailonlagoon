@@ -1,0 +1,22 @@
+docker-compose-yaml: ./lagoon-docker-compose.yml
+
+project: %projectName%
+
+
+tasks:
+  post-rollout:
+    - run:
+        name: Prepare Storage
+        command: mkdir -p /app/storage/framework/sessions /app/storage/framework/views /app/storage/framework/cache /app/storage/framework/cache/data
+        service: cli
+        shell: bash
+    - run:
+        name: Run migrations
+        command: php artisan -n migrate --force
+        service: cli
+        shell: bash
+    - run:
+        name: Clear Caches
+        command: php artisan -n cache:clear && php artisan -n route:clear && php artisan -n view:cache
+        service: cli
+        shell: bash

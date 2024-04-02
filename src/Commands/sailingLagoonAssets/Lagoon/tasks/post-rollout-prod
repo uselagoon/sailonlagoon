@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# This script is run by lagoon as a POST-ROLLOUT task for non-production
+# It runs in the CLI container only (so not the worker, or the PHP container)
+
+cd /app
+
+# Loading environment variables from .env and friends
+source /lagoon/entrypoints/50-dotenv.sh
+
+# Generate some additional enviornment variables
+source /lagoon/entrypoints/55-generate-env.sh
+
+# Run production migrations automatically in prod
+php artisan migrate --force

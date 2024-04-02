@@ -1,0 +1,3 @@
+# if defined you should already have the env vars:
+REDIS_HOST="${REDIS_HOST:-redis}"
+REDIS_PORT="${REDIS_PORT:-6379}"
