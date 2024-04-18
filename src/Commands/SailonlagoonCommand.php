@@ -1,6 +1,6 @@
 <?php
 
-namespace Uselagoon\Sailinglagoon\Commands;
+namespace Uselagoon\Sailonlagoon\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\File;
 
 use function Illuminate\Filesystem\join_paths;
 
-class SailinglagoonCommand extends Command
+class SailonlagoonCommand extends Command
 {
 
     protected $dockerComposeName = "lagoon-docker-compose.yml";
@@ -118,7 +118,7 @@ class SailinglagoonCommand extends Command
         }
 
         //Let's build the service list and then parse
-        $stubsRootPath = join_paths(__DIR__, "sailingLagoonAssets/stubs");
+        $stubsRootPath = join_paths(__DIR__, "sailonLagoonAssets/stubs");
         $yamlFile = file_get_contents(join_paths($stubsRootPath, "docker-compose.stub"));
 
         $dockerComposeFile = $this->generateDockerCompose($services, $stubsRootPath, $yamlFile);
@@ -131,7 +131,7 @@ class SailinglagoonCommand extends Command
 
         // Let's now do the same for env stubs
 
-        $stubsRootPath = join_paths(__DIR__, "sailingLagoonAssets/envstubs");
+        $stubsRootPath = join_paths(__DIR__, "sailonLagoonAssets/envstubs");
         $stubContents = "";
         foreach ($services as $serviceName) {
             $stubPath = join_paths($stubsRootPath, $serviceName.".stub");
@@ -144,7 +144,7 @@ class SailinglagoonCommand extends Command
         }
 
         // now let's copy the files we require to build everything to .lagoon
-        $copySource = join_paths(__DIR__, "sailingLagoonAssets", "Lagoon");
+        $copySource = join_paths(__DIR__, "sailonLagoonAssets", "Lagoon");
         $copyDest = join_paths(base_path(), "lagoon");
 
         if(File::copyDirectory($copySource, $copyDest)) {
@@ -152,7 +152,7 @@ class SailinglagoonCommand extends Command
         }
 
         // Let's generate the .lagoon.yml file
-        $lagoonYml = file_get_contents(join_paths(__DIR__, "sailingLagoonAssets",".lagoon.yml"));
+        $lagoonYml = file_get_contents(join_paths(__DIR__, "sailonLagoonAssets",".lagoon.yml"));
         $replacements = [
           '%projectName%' => $projectName,
         ];

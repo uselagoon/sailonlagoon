@@ -4,7 +4,7 @@
     "keywords": [
         "uselagoon",
         "laravel",
-        "sailinglagoon"
+        "sailonlagoon"
     ],
     "homepage": "https://github.com/uselagoon/sailonlagoon",
     "license": "MIT",
@@ -30,19 +30,19 @@
     },
     "autoload": {
         "psr-4": {
-            "Uselagoon\\Sailinglagoon\\": "src/",
-            "Uselagoon\\Sailinglagoon\\Database\\Factories\\": "database/factories/"
+            "Uselagoon\\Sailonlagoon\\": "src/",
+            "Uselagoon\\Sailonlagoon\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Uselagoon\\Sailinglagoon\\Tests\\": "tests/",
+            "Uselagoon\\Sailonlagoon\\Tests\\": "tests/",
             "Workbench\\App\\": "workbench/app/"
         }
     },
     "scripts": {
         "post-autoload-dump": "@composer run prepare",
-        "clear": "@php vendor/bin/testbench package:purge-sailinglagoon --ansi",
+        "clear": "@php vendor/bin/testbench package:purge-sailonlagoon --ansi",
         "prepare": "@php vendor/bin/testbench package:discover --ansi",
         "build": [
             "@composer run prepare",
@@ -68,10 +68,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Uselagoon\\Sailinglagoon\\SailinglagoonServiceProvider"
+                "Uselagoon\\Sailonlagoon\\SailonlagoonServiceProvider"
             ],
             "aliases": {
-                "Sailinglagoon": "Uselagoon\\Sailinglagoon\\Facades\\Sailinglagoon"
+                "Sailonlagoon": "Uselagoon\\Sailonlagoon\\Facades\\Sailonlagoon"
             }
         }
     },

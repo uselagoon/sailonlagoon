@@ -1,10 +1,10 @@
 <?php
 
-namespace Uselagoon\Sailinglagoon\Tests;
+namespace Uselagoon\Sailonlagoon\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Uselagoon\Sailinglagoon\SailinglagoonServiceProvider;
+use Uselagoon\Sailonlagoon\SailonlagoonServiceProvider;
 
 class TestCase extends Orchestra
 {
@@ -13,14 +13,14 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'Uselagoon\\Sailinglagoon\\Database\\Factories\\'.class_basename($modelName).'Factory'
+            fn (string $modelName) => 'Uselagoon\\Sailonlagoon\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
     }
 
     protected function getPackageProviders($app)
     {
         return [
-            SailinglagoonServiceProvider::class,
+            SailonlagoonServiceProvider::class,
         ];
     }
 
@@ -29,7 +29,7 @@ class TestCase extends Orchestra
         config()->set('database.default', 'testing');
 
         /*
-        $migration = include __DIR__.'/../database/migrations/create_sailinglagoon_table.php.stub';
+        $migration = include __DIR__.'/../database/migrations/create_sailonlagoon_table.php.stub';
         $migration->up();
         */
     }

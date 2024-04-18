@@ -1,12 +1,12 @@
 <?php
 
-namespace Uselagoon\Sailinglagoon;
+namespace Uselagoon\Sailonlagoon;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Uselagoon\Sailinglagoon\Commands\SailinglagoonCommand;
+use Uselagoon\Sailonlagoon\Commands\SailonlagoonCommand;
 
-class SailinglagoonServiceProvider extends PackageServiceProvider
+class SailonlagoonServiceProvider extends PackageServiceProvider
 {
     public function configurePackage(Package $package): void
     {
@@ -16,7 +16,7 @@ class SailinglagoonServiceProvider extends PackageServiceProvider
          * More info: https://github.com/spatie/laravel-package-tools
          */
         $package
-            ->name('sailinglagoon')
-            ->hasCommand(SailinglagoonCommand::class);
+            ->name('sailonlagoon')
+            ->hasCommand(SailonlagoonCommand::class);
     }
 }

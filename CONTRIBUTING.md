@@ -6,7 +6,7 @@ Welcome to Sail on Lagoon! We appreciate your interest in contributing to this p
 
 ### Reporting Issues
 
-If you encounter a bug or have a feature request, please [open an issue](https://github.com/bomoko/sailinglagoon/issues) on GitHub. Before creating a new issue, search existing ones to avoid duplicates.
+If you encounter a bug or have a feature request, please [open an issue](https://github.com/uselagoon/sailonlagoon/issues) on GitHub. Before creating a new issue, search existing ones to avoid duplicates.
 
 When reporting an issue, include:
 
@@ -40,6 +40,6 @@ All PRs will be reviewed by project maintainers. Feedback and discussions may oc
 
 ## Resources
 
-- [Issue Tracker](https://github.com/bomoko/sailinglagoon/issues)
+- [Issue Tracker](https://github.com/uselagoon/sailonlagoon/issues)
 - [License](LICENSE)
 
