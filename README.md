@@ -29,6 +29,12 @@ This will read your sail generated docker-compose.yml file and attempt to genera
 You can, optionally, specify the name of your project and skip the interactive question.
 Specifying `--no-interaction` will skip any interaction (including warnings) and Lagoonize the project.
 
+## Requirements
+There are very few requirements that aren't requirements for Sail directly, but they are:
+
+- PHP >= 8.1
+- Laravel >= 10
+
 ## Supported Services
 
 Sail-on-Lagoon currently supports the following service types:
