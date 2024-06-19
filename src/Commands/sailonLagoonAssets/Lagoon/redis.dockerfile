@@ -1,4 +1,4 @@
-FROM amazeeio/redis-persistent
+FROM uselagoon/redis-7-persistent
 
 #######################################################
 # Finalize Environment
