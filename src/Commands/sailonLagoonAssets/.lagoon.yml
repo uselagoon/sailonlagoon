@@ -6,7 +6,7 @@ project: %projectName%
 tasks:
   post-rollout:
     - run:
-        name: Prepare Storage
+        name: Prepare storage
         command: mkdir -p /app/storage/framework/sessions /app/storage/framework/views /app/storage/framework/cache /app/storage/framework/cache/data
         service: cli
         shell: bash
@@ -16,7 +16,7 @@ tasks:
         service: cli
         shell: bash
     - run:
-        name: Clear Caches
+        name: Clear caches
         command: php artisan -n cache:clear && php artisan -n route:clear && php artisan -n view:cache
         service: cli
         shell: bash

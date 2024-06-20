@@ -1,5 +1,5 @@
   mariadb:
-    image: amazeeio/mariadb
+    image: uselagoon/mariadb
     labels:
       lagoon.type: mariadb
     environment:

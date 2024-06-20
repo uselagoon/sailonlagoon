@@ -1,4 +1,4 @@
-# Sailon Lagoon Stubs
+# SailonLagoon Stubs
 
 Essentially inspired by (stolen from?) Sail's implementation,
 this directory contains a number of stubs used to generate the Lagoon specific docker-compose file.

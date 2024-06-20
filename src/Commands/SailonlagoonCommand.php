@@ -60,6 +60,8 @@ class SailonlagoonCommand extends Command
 
     /**
      * Execute the console command.
+     *
+     * @throws \Exception
      */
     public function handle()
     {
@@ -212,7 +214,6 @@ class SailonlagoonCommand extends Command
      * @param Collection $services
      * @param string $stubsRootPath
      * @param string $yamlFile
-     * @param mixed $dockerComposeFile
      * @return array
      */
     public function generateDockerCompose(Collection $services, string $stubsRootPath, string $yamlFile): mixed

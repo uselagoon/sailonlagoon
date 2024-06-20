@@ -1,6 +1,6 @@
 ARG CLI_IMAGE
 FROM ${CLI_IMAGE} as cli
-FROM amazeeio/nginx
+FROM uselagoon/nginx
 
 #######################################################
 # Customize Nginx to Laravel Land
