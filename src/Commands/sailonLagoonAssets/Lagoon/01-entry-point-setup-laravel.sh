@@ -3,7 +3,7 @@
 # Loading environment variables from .env and friends
 source /lagoon/entrypoints/50-dotenv.sh
 
-# Generate some additional enviornment variables
+# Generate some additional environment variables
 source /lagoon/entrypoints/55-generate-env.sh
 
 if [ -z "$APP_URL" ]; then
@@ -32,8 +32,8 @@ if [ "$APP_ENV" == "local" ]; then
       fi
 fi
 
-if [ -z $APP_ENVA ]; then
-      echo "Settng empty APP_ENV to $LAGOON_ENVIRONMENT"
+if [ -z "$APP_ENVA" ]; then
+      echo "Setting empty APP_ENV to $LAGOON_ENVIRONMENT"
       export APP_ENV=$LAGOON_ENVIRONMENT
 
       if [ -f "/app/.env" ]; then
@@ -94,7 +94,7 @@ fi
 
 if [ -f "artisan" ] && [ -z "$APP_KEY" ]; then
       APP_KEY=`php artisan key:generate --show --no-ansi`
-      echo "Settng APP_KEY to $APP_KEY"
+      echo "Setting APP_KEY to $APP_KEY"
       export APP_KEY=$APP_KEY
 
       if [ -f "/app/.env" ]; then

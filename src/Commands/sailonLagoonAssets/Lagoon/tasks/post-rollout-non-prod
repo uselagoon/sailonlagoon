@@ -8,11 +8,11 @@ cd /app
 # Loading environment variables from .env and friends
 source /lagoon/entrypoints/50-dotenv.sh
 
-# Generate some additional enviornment variables
+# Generate some additional environment variables
 source /lagoon/entrypoints/55-generate-env.sh
 
-# NB: See /app/lagoon/entry-point-setup-laravel.sh for more insight into 
-# container startup scripts that cache views, run migrations, load the db 
+# NB: See /app/lagoon/entry-point-setup-laravel.sh for more insight into
+# container startup scripts that cache views, run migrations, load the db
 # if it is blank, etc, etc
 
 ### Additional Post Rollout
