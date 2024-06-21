@@ -1,5 +1,5 @@
   mariadb:
-    image: uselagoon/mariadb
+    image: uselagoon/mysql-8.0
     labels:
       lagoon.type: mariadb
     environment:
