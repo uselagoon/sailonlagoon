@@ -16,8 +16,11 @@ The assumption is that you've already set up your Laravel development environmen
 Once you have your Laravel site running locally, you can install `Sail on Lagoon` via composer:
 
 ```bash
-composer require uselagoon/sailonlagoon
+composer require --dev uselagoon/sailonlagoon
 ```
+
+Note that we install Sail:onLagoon as a dev dependency (with the `--dev` flag) as it simply creates and publishes
+configuration files, therefore, the package itself isn't required at run time.
 
 To use Sail:onLagoon, run the following Artisan command:
 
