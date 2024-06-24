@@ -66,10 +66,9 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
 
-## Credits
+## Acknowledgements
 
-- [Blaize Kaye](https://github.com/uselagoon)
-- [All Contributors](../../contributors)
+Initial Laravel bootstrap code provided by [Workshop Orange](https://github.com/Workshop-Orange).
 
 ## License
 
