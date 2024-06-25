@@ -1,4 +1,4 @@
   postgres:
-    image: uselagoon/postgres-14-drupal:latest
+    image: uselagoon/postgres-14:latest
     labels:
       lagoon.type: postgres
