@@ -1,0 +1,7 @@
+# DB_CONNECTION is used by Laravel's default config to determine DB driver - see config/database.php
+DB_CONNECTION=pgsql
+DB_HOST="${POSTGRES_HOST:-postgres}"
+DB_PORT="${POSTGRES_PORT:-5432}"
+DB_DATABASE="${POSTGRES_DATABASE:-lagoon}"
+DB_USERNAME="${POSTGRES_USERNAME:-lagoon}"
+DB_PASSWORD="${POSTGRES_PASSWORD:-lagoon}"
