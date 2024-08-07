@@ -1,6 +1,8 @@
 FROM uselagoon/lagoon-cli:latest as LAGOONCLI
 FROM uselagoon/php-8.3-cli
 
+ARG LAGOON_ENVIRONMENT_TYPE
+
 #######################################################
 # Install PHP extensions
 #######################################################
@@ -41,6 +43,23 @@ RUN if [ -f "package.json" ]; then \
     npm ci; \
     npm run build; \
   fi
+
+#######################################################
+# Prepare the application
+#######################################################
+
+RUN php artisan config:clear \
+  && php artisan route:clear \
+  && php artisan view:clear \
+  && php artisan event:clear \
+  && php artisan optimize:clear
+
+RUN if [ "$LAGOON_ENVIRONMENT_TYPE" == "production" ]; then php artisan config:cache \
+ && php artisan route:cache \
+ && php artisan view:cache \
+ && php artisan event:cache \
+ && php artisan optimize; \
+ fi
 
 #######################################################
 # Finalize Environment

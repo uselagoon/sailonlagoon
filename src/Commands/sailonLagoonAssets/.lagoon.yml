@@ -15,19 +15,3 @@ tasks:
         command: php artisan -n migrate --force
         service: cli
         shell: bash
-    - run:
-        name: Clear caches
-        command: php artisan -n cache:clear && php artisan -n route:clear && php artisan -n view:cache
-        service: cli
-        shell: bash
-    - run:
-        name: Build caches when pushing to production
-        when: LAGOON_ENVIRONMENT_TYPE == "production"
-        command: |
-          php artisan config:cache
-          php artisan route:cache
-          php artisan view:cache
-          php artisan event:cache
-          php artisan optimize
-        service: cli
-        shell: bash
