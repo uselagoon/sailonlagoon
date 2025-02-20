@@ -1,3 +1,5 @@
+# DB_CONNECTION is used by Laravel's default config to determine DB driver - see config/database.php
+DB_CONNECTION=mysql
 DB_HOST="${MARIADB_HOST:-mariadb}"
 DB_PORT="${MARIADB_PORT:-3306}"
 DB_DATABASE="${MARIADB_DATABASE:-lagoon}"
