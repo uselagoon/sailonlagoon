@@ -23,15 +23,13 @@ it('will allow us to remove unused services', function () {
 
 it("should successfully generate a docker-compose.yaml given stubs", function () {
     $sailonLagoonCommand = new SailonlagoonCommand();
-    $serviceList = collect(["cli", "php", "nginx"]);
+    $serviceList = collect(["cli", "mariadb"]);
     $yamlFile = file_get_contents(join_paths(__DIR__, "assets/stubs", "docker-compose.stub"));
     $dockerCompose = $sailonLagoonCommand->generateDockerCompose($serviceList,
         join_paths(__DIR__, "assets/stubs"), $yamlFile);
 
     $yamlOutput = Yaml::dump($dockerCompose, 5);
-    dd($yamlOutput);
     expect($yamlOutput)->toContain("cli")->toContain("mariadb")->not()->toContain("php");
-
 });
 
 it("should order the services in the docker-compose.yaml in the correct order", function () {
