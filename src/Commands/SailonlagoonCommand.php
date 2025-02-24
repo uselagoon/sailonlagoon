@@ -44,6 +44,13 @@ class SailonlagoonCommand extends Command
         'nginx',
     ];
 
+    /** @var string[] $serviceOrder determines a partial ordering of services for yaml output - some services need to be defined before others, this enforces that */
+    protected $serviceOrder = [
+        'cli',
+        'nginx',
+        'php',
+    ];
+
     /**
      * The name and signature of the console command.
      *
@@ -78,26 +85,26 @@ class SailonlagoonCommand extends Command
         $defaultProjectName = "my-project";
         // Let's see if there already exists some lagoon.yml
         $existantInstall = $this->loadExisting(base_path());
-        if($existantInstall != false) {
+        if ($existantInstall != false) {
             $this->warn("Warning, it seems as though there is already a .lagoon.yml present");
             $this->warn("Continuing with this process could cause loss of Lagoon configuration information.");
-            if($this->option("no-interaction") == true) {
+            if ($this->option("no-interaction") == true) {
                 $this->error("If running in no-interaction, please remove .lagoon.yml to continue");
                 return;
             } else {
-                if(!$this->confirm("Continue?")) {
+                if (!$this->confirm("Continue?")) {
                     return;
                 }
             }
-            if(!empty($existantInstall['project'])) {
+            if (!empty($existantInstall['project'])) {
                 $defaultProjectName = $existantInstall['project'];
             }
         }
 
         // ensure that the user has set their options
         $projectName = $this->option('projectName');
-        if(empty($projectName)) {
-            if($this->option("no-interaction") == true) {
+        if (empty($projectName)) {
+            if ($this->option("no-interaction") == true) {
                 $this->error("If using 'no-interaction', please ensure you've set a project name using the `--projectName=` option");
                 return 1;
             }
@@ -108,12 +115,12 @@ class SailonlagoonCommand extends Command
 
         // Here we ensure that none of the incoming services aren't on our unsupported list
         $disallowedServices = array_intersect(array_keys($parsedCompose['services']), array_keys($this->unsupportedServices));
-        if(count($disallowedServices) > 0) {
+        if (count($disallowedServices) > 0) {
             $this->info("The following unsupported services have been detected:");
             foreach ($disallowedServices as $key) {
                 $this->info(sprintf("* %s: %s", $key, $this->unsupportedServices[$key]));
             }
-            if($this->option("no-interaction") == false && !$this->confirm("Continue Lagoonizing while ignoring these services?", true)) {
+            if ($this->option("no-interaction") == false && !$this->confirm("Continue Lagoonizing while ignoring these services?", true)) {
                 $this->error("Will not continue");
                 return 1;
             }
@@ -125,7 +132,7 @@ class SailonlagoonCommand extends Command
 
         $dockerComposeFile = $this->generateDockerCompose($services, $stubsRootPath, $yamlFile);
 
-        if(!file_put_contents(join_paths(base_path(), $this->dockerComposeName), Yaml::dump($dockerComposeFile,5))) {
+        if (!file_put_contents(join_paths(base_path(), $this->dockerComposeName), Yaml::dump($dockerComposeFile, 5))) {
             throw new \Exception("Unable to write docker-compose file");
         }
 
@@ -136,12 +143,12 @@ class SailonlagoonCommand extends Command
         $stubsRootPath = join_paths(__DIR__, "sailonLagoonAssets/envstubs");
         $stubContents = "";
         foreach ($services as $serviceName) {
-            $stubPath = join_paths($stubsRootPath, $serviceName.".stub");
-            if(file_exists($stubPath)) {
+            $stubPath = join_paths($stubsRootPath, $serviceName . ".stub");
+            if (file_exists($stubPath)) {
                 $stubContents .= sprintf("\n## %s\n\n%s\n", $serviceName, file_get_contents($stubPath));
             }
         }
-        if(!empty($stubContents)) {
+        if (!empty($stubContents)) {
             file_put_contents(join_paths(base_path(), ".lagoon.env"), $stubContents);
         }
 
@@ -149,20 +156,20 @@ class SailonlagoonCommand extends Command
         $copySource = join_paths(__DIR__, "sailonLagoonAssets", "Lagoon");
         $copyDest = join_paths(base_path(), "lagoon");
 
-        if(File::copyDirectory($copySource, $copyDest)) {
+        if (File::copyDirectory($copySource, $copyDest)) {
             $this->info("Successfully copied Lagoon assets to .lagoon");
         }
 
         // Let's generate the .lagoon.yml file
-        $lagoonYml = file_get_contents(join_paths(__DIR__, "sailonLagoonAssets",".lagoon.yml"));
+        $lagoonYml = file_get_contents(join_paths(__DIR__, "sailonLagoonAssets", ".lagoon.yml"));
         $replacements = [
-          '%projectName%' => $projectName,
+            '%projectName%' => $projectName,
         ];
 
         $lagoonYml = str_replace(array_keys($replacements), $replacements, $lagoonYml);
 
 
-        if(file_put_contents(join_paths(base_path(), ".lagoon.yml"), $lagoonYml)) {
+        if (file_put_contents(join_paths(base_path(), ".lagoon.yml"), $lagoonYml)) {
             $this->info("Successfully created .lagoon.yml");
         }
 
@@ -199,10 +206,11 @@ class SailonlagoonCommand extends Command
      * @param $baseDir
      * @return false|mixed
      */
-    public function loadExisting($baseDir) {
+    public function loadExisting($baseDir)
+    {
         //search for existing .lagoon.yml file in base
         $lagoonYmlFile = join_paths($baseDir, ".lagoon.yml");
-        if(file_exists($lagoonYmlFile)) {
+        if (file_exists($lagoonYmlFile)) {
             $currentLagoonYml = file_get_contents($lagoonYmlFile);
             $parsedCurrentLagoonYml = Yaml::parse($currentLagoonYml);
             return $parsedCurrentLagoonYml;
@@ -218,6 +226,8 @@ class SailonlagoonCommand extends Command
      */
     public function generateDockerCompose(Collection $services, string $stubsRootPath, string $yamlFile): mixed
     {
+        /** @var Collection $services */
+        $services = self::prioritizeOrder(collect($this->serviceOrder), $services);
         foreach ($services as $serviceName) {
             $stubPath = join_paths($stubsRootPath, $serviceName . ".stub");
             if (file_exists($stubPath)) {
@@ -229,6 +239,26 @@ class SailonlagoonCommand extends Command
         $serviceList = $dockerComposeFile["services"];
         $dockerComposeFile["services"] = self::removeUnusedServiceDependencies($serviceList, $services);
         return $dockerComposeFile;
+    }
+
+    /**
+     * This function will take in a suggested order for items, and try its best to sort it according to the
+     * Given order. Any items not in the $order collection that appear in the $toBeSorted collection will
+     * appear in any order. All the others will be given a preferential ordering based on what appears in $order
+     *
+     * @param Collection $order
+     * @param Collection $toBeSorted
+     * @return void
+     */
+    public static function prioritizeOrder(Collection $order, Collection $toBeSorted): mixed
+    {
+        return $toBeSorted->sortBy(function ($i) use ($order) {
+            // all items not in $order will get a large number, all the rest will get the index from $order
+            if ($order->contains($i)) {
+                return $order->search($i);
+            }
+            return PHP_INT_MAX;
+        })->values();
     }
 
 }
