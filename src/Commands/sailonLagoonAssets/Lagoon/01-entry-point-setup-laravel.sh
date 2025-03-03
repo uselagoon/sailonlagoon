@@ -32,7 +32,7 @@ if [ "$APP_ENV" == "local" ]; then
       fi
 fi
 
-if [ -z "$APP_ENVA" ]; then
+if [ -z "$APP_ENV" ]; then
       echo "Setting empty APP_ENV to $LAGOON_ENVIRONMENT"
       export APP_ENV=$LAGOON_ENVIRONMENT
 
