@@ -248,9 +248,9 @@ class SailonlagoonCommand extends Command
      *
      * @param Collection $order
      * @param Collection $toBeSorted
-     * @return void
+     * @return Collection
      */
-    public static function prioritizeOrder(Collection $order, Collection $toBeSorted): mixed
+    public static function prioritizeOrder(Collection $order, Collection $toBeSorted): Collection
     {
         return $toBeSorted->sortBy(function ($i) use ($order) {
             // all items not in $order will get a large number, all the rest will get the index from $order
